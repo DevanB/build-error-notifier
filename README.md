@@ -1,5 +1,6 @@
 # build-error-notifier
-Build error notifications for your build toolchain
+Build error notifications for your build toolchain. Supports tsc (typescript compiler), tslint, node-sass,
+and jasmine-node (test runner). More to come.
 
 ![Example](https://raw.githubusercontent.com/mvindahl/build-error-notifier/master/docs/images/example.png)
 
