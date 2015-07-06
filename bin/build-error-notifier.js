@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var notifier = require('node-notifier');
 var _ = require('underscore');
 var handlebars = require('handlebars');
