@@ -1,8 +1,10 @@
 # build-error-notifier
 Build error notifications for your build toolchain
 
+![Example](https://raw.githubusercontent.com/mvindahl/build-error-notifier/master/docs/images/example.png)
+
 ## What is this?
-A CLI tool which notifies you of errors from your build process. Simply [pipe](https://en.wikipedia.org/wiki/Pipeline_(Unix)
+A CLI tool which notifies you of errors from your build process. Simply [pipe](https://en.wikipedia.org/wiki/Pipeline_(Unix))
 build output to build-error-notifier. It recognizes output from a growing list of CLI build tools; see the Usage section for details.
 
 Recognized error messages are displayed using the [node-notifier](https://www.npmjs.com/package/node-notifier) module.
@@ -27,15 +29,19 @@ Example:
 
 ### [tsc](https://www.npmjs.com/package/typescript) (TypeScript compiler)
 Example:
+
 `tsc ./src.ts --out ./out.js --watch | build-error-notifier`
 
 ### [tslint](https://www.npmjs.com/package/tslint) (TypeScript linter)
 Example:
+
 `tslint ./src.ts | build-error-notifier`
 
 ### [jasmine-node](https://www.npmjs.com/package/jasmine-node) (Test runner)
 Example:
+
 `jasmine-node ./test/ --autotest | build-error-notifier.js`
+
 NOTE: You can also use the built-in --growl option if you have paid for growl and if you want it to notify you on successful test runs
 as well. The build-error-notifier will only notify of errors to avoid "notification fatigue".
 
@@ -51,5 +57,5 @@ MacOS for sure. Linux, probably, although I have yet to test it. Windows, maybe 
 backslach file path delimiters as of now, but it would be an easy fix if someone wants it.
 
 ### Don't I need to tell it which build tool to scan for?
-In the current version, no. It will scan for everything. It's simple and I don't think there'll be any discernible performance impact
+In the current version, no. It will scan for everything. It's simple and I don't think there'll be any real performance impact
 from this.
