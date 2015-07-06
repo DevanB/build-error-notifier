@@ -3,11 +3,8 @@
   "version": "0.1.0",
   "description": "Build error notifications for your build toolchain",
   "main": "bin/build-error-notifier.js",
-  "bin": {
-    "build-error-notifier": "build-error-notifier.js"
-  },
   "scripts": {
-    "test": "jasmine"
+    "test": "./node_modules/.bin/jasmine"
   },
   "repository": {
     "type": "git",
@@ -21,7 +18,7 @@
     "tslint"
   ],
   "author": "mvindahl",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mvindahl/build-error-notifier/issues"
   },
