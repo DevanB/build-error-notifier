@@ -1,0 +1,41 @@
+{
+  "name": "build-error-notifier",
+  "version": "0.0.1",
+  "description": "Build error notifications for your build toolchain",
+  "main": "bin/build-error-notifier.js",
+  "bin": {
+    "build-error-notifier": "build-error-notifier.js"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mvindahl/build-error-notifier.git"
+  },
+  "keywords": [
+    "notifications",
+    "tsc",
+    "node-sass",
+    "karma",
+    "tslint"
+  ],
+  "author": "mvindahl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvindahl/build-error-notifier/issues"
+  },
+  "homepage": "https://github.com/mvindahl/build-error-notifier",
+  "dependencies": {
+    "handlebars": "^3.0.3",
+    "node-notifier": "^4.2.3",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "jasmine": "^2.3.1",
+    "mock-stdin": "^0.3.0",
+    "mockery": "^1.4.0",
+    "sinon": "^1.15.4",
+    "std-mocks": "^1.0.0"
+  }
+}
