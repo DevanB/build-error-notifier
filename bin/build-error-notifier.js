@@ -38,20 +38,15 @@ var config = {
     }
 };
 
-function applyGroups(str, groupsArray) {
-    var groups = _.object(_.range(groupsArray.length), groupsArray);
-    str = handlebars.compile(str)(groups); // FIXME should precompile template
-    return str;
-}
-
 process.stdin.on('data', function (chunk) {
     _.each(config, function(match, key, list) {
-        var groups = chunk.match(match.regex);
-        if (groups) {
+        var groupsArray = chunk.match(match.regex);
+        if (groupsArray) {
+            var groups = _.object(_.range(groupsArray.length), groupsArray);
             var notifyParams = {
-                title: applyGroups(match.title, groups),
-                message: applyGroups(match.message, groups),
-                subtitle: applyGroups(match.subtitle, groups),
+                title: handlebars.compile(match.title)(groups),
+                message: handlebars.compile(match.message)(groups),
+                subtitle: handlebars.compile(match.subtitle)(groups),
                 sound: match.sound, 
                 icon: match.icon,
                 contentImage: match.contentImage, 
