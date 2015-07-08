@@ -26,6 +26,7 @@ inserting 2>&1 before the pipe.
 
 ### [node-sass](https://www.npmjs.com/package/node-sass) (Sass compiler)
 Example:
+
 `node-sass ./styles.scss -o ./styles.css --watch 2>&1 | build-error-notifier`
 
 ### [tsc](https://www.npmjs.com/package/typescript) (TypeScript compiler)
@@ -41,7 +42,7 @@ Example:
 ### [jasmine-node](https://www.npmjs.com/package/jasmine-node) (Test runner)
 Example:
 
-`jasmine-node ./test/ --autotest | build-error-notifier.js`
+`jasmine-node ./test/ --autotest | build-error-notifier`
 
 NOTE: You can also use the built-in --growl option if you have paid for growl and if you want it to notify you on successful test runs
 as well. The build-error-notifier will only notify of errors to avoid "notification fatigue".
