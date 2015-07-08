@@ -46,6 +46,11 @@ Example:
 NOTE: You can also use the built-in --growl option if you have paid for growl and if you want it to notify you on successful test runs
 as well. The build-error-notifier will only notify of errors to avoid "notification fatigue".
 
+## Parameters
+use `--addConfig [path to file]` to add custom configuration. The file should be a node module and should export a data
+structure similar to the one defined in [build-error-notifier.js](https://github.com/mvindahl/build-error-notifier/blob/master/bin/build-error-notifier.js).
+See [this file](https://github.com/mvindahl/build-error-notifier/blob/master/spec/testConfig.js) for an example.
+
 ## Q&A
 ### Why don't you support tool X?
 This is just a starting point and is based upon the tools which I frequently use. On the top of my head, I plan to add support

@@ -4,10 +4,7 @@ var notifier = require('node-notifier');
 var _ = require('underscore');
 var handlebars = require('handlebars');
 var path = require('path');
-
-process.stdin.resume();  
-process.stdin.pipe(process.stdout);  
-process.stdin.setEncoding('utf8');
+var argv = require('minimist')(process.argv.slice(2));
 
 var config = {
     'tsc': {
@@ -39,6 +36,22 @@ var config = {
         icon: path.join(__dirname, '/images/jasmine.png')
     }
 };
+
+if (argv.addConfig) {
+    var fullPath = path.join(process.cwd(), argv.addConfig);
+    var addedConfig;
+    try {
+        addedConfig = require(fullPath);    
+    } catch (e) {
+        console.log('Failed to load added config file from ', fullPath);
+        process.exit(1);
+    }
+    config = _.extend(config, addedConfig);
+}
+
+process.stdin.resume();  
+process.stdin.pipe(process.stdout);  
+process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', function (chunk) {
     _.each(config, function(match, key, list) {

@@ -27,6 +27,7 @@
   "homepage": "https://github.com/mvindahl/build-error-notifier",
   "dependencies": {
     "handlebars": "^3.0.3",
+    "minimist": "^1.1.1",
     "node-notifier": "^4.2.3",
     "underscore": "^1.8.3"
   },

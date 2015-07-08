@@ -19,6 +19,7 @@ describe('build-error-notifier', function() {
     
     mockery.registerMock('node-notifier', nodeNotifierMock);
 
+    process.argv = [ 'node', '/full/path/to/build-error-notifier', '--addConfig', './spec/testConfig.js' ];
     buildErrorNotifier = require('../bin/build-error-notifier.js');
 
     nodeNotifierMock.notify.reset();
@@ -124,4 +125,24 @@ describe('build-error-notifier', function() {
     expect(output.sound).toBeUndefined();
   });
   
+  it('loaded the additional config', function() {
+    // this rule is gibberish, of course  
+      
+    var output = 'Houston, we\'ve got a garden gnome';
+
+    stdMocks.use();
+    stdin.send(output); 
+    stdMocks.restore();
+
+    var output = nodeNotifierMock.notify.args[0][0];
+    expect(output.title).toEqual('Apollo 13');
+    expect(output.subtitle).toEqual('.. aiming for the moon!');
+    expect(output.message).toEqual('Now they got garden gnome! LOL!');
+    expect(output.icon).toEqual(path.join(process.cwd(), './buildenv/images/apollo13.png'));
+    expect(output.contentImage).toBeUndefined();
+    expect(output.open).toBeUndefined();
+    expect(output.wait).toBeUndefined();
+    expect(output.sound).toEqual('Ping');
+  });
+
 });
