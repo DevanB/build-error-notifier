@@ -1,6 +1,6 @@
 {
   "name": "build-error-notifier",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Build error notifications for your build toolchain",
   "bin": {
     "build-error-notifier": "bin/build-error-notifier.js"
