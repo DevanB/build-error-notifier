@@ -17,6 +17,7 @@
     "tsc",
     "node-sass",
     "karma",
+    "jasmine-node",
     "tslint"
   ],
   "author": "mvindahl",

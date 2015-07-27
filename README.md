@@ -1,5 +1,5 @@
 # build-error-notifier
-Build error notifications for your build toolchain. Supports tsc (typescript compiler), tslint, node-sass,
+Build error notifications for your build toolchain. Supports tsc (typescript compiler), tslint, node-sass, karma (test runner),
 and jasmine-node (test runner). More to come.
 
 ![Example](https://raw.githubusercontent.com/mvindahl/build-error-notifier/master/docs/images/example.png)
@@ -46,6 +46,11 @@ Example:
 
 NOTE: You can also use the built-in --growl option if you have paid for growl and if you want it to notify you on successful test runs
 as well. The build-error-notifier will only notify of errors to avoid "notification fatigue".
+
+### [karma](https://www.npmjs.com/package/karma) (Test runner)
+Example:
+
+`karma start ./test/karma.conf.js --single-run | build-error-notifier`
 
 ## Parameters
 use `--addConfig [path to file]` to add custom configuration. The file should be a node module and should export a data

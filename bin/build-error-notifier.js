@@ -29,11 +29,18 @@ var config = {
         icon: path.join(__dirname, '/images/tslint.png')
     },
     'jasmine-node': {
-        regex: /\s*Error: (.*)\n\s*at .*\/(.*):(\d*):(\d*)/,
+        regex: /\s*^Error: (.*)\n\s*at .*\/(.*):(\d*):(\d*)/,
         title: 'Jasmine Test',
         subtitle: '{{2}}[{{3}}:{{4}}]',
         message: '{{{1}}}',                
         icon: path.join(__dirname, '/images/jasmine.png')
+    },
+    'karma': {
+        regex: /\t(?:AssertionError|Error): (.*)(?:\n\t    .*)*\n\t    at .*\/([^:]*):(\d*):(\d*)/,
+        title: 'Karma Test',
+        subtitle: '{{2}}[{{3}}:{{4}}]',
+        message: '{{{1}}}',                
+        icon: path.join(__dirname, '/images/karma.png')        
     }
 };
 

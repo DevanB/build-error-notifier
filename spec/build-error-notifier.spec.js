@@ -57,6 +57,7 @@ describe('build-error-notifier', function() {
     stdin.send(output); 
     stdMocks.restore();
 
+    expect(nodeNotifierMock.notify.called).toBe(true);
     var output = nodeNotifierMock.notify.args[0][0];
     expect(output.title).toEqual('Sass Compiler');
     expect(output.subtitle).toEqual('_common.scss[6:3]');
@@ -75,6 +76,7 @@ describe('build-error-notifier', function() {
     stdin.send(output); 
     stdMocks.restore();
 
+    expect(nodeNotifierMock.notify.called).toBe(true);
     var output = nodeNotifierMock.notify.args[0][0];
     expect(output.title).toEqual('Typescript Compiler');
     expect(output.subtitle).toEqual('admin.ts[24:2]');
@@ -93,6 +95,7 @@ describe('build-error-notifier', function() {
     stdin.send(output); 
     stdMocks.restore();
 
+    expect(nodeNotifierMock.notify.called).toBe(true);
     var output = nodeNotifierMock.notify.args[0][0];
     expect(output.title).toEqual('TSLint');
     expect(output.subtitle).toEqual('admin.ts[4:15]');
@@ -114,11 +117,63 @@ describe('build-error-notifier', function() {
     stdin.send(output); 
     stdMocks.restore();
 
+    expect(nodeNotifierMock.notify.called).toBe(true);
     var output = nodeNotifierMock.notify.args[0][0];
     expect(output.title).toEqual('Jasmine Test');
     expect(output.subtitle).toEqual('fooBarSpec.js[79:34]');
     expect(output.message).toEqual('Expected 1 to equal 42.');
     expect(output.icon).toEqual(path.join(__dirname, '../bin/images/jasmine.png'));
+    expect(output.contentImage).toBeUndefined();
+    expect(output.open).toBeUndefined();
+    expect(output.wait).toBeUndefined();
+    expect(output.sound).toBeUndefined();
+  });
+  
+  it('can process output from Karma', function() {
+    var example1 = [
+        'PhantomJS 1.9.7 (Mac OS X 0.0.0) foobar.controller specs is neat FAILED',
+        '	AssertionError: expected \'not really neat\' to equal \'neat\'',
+        '	    at /Users/spongebob/squarepants/bower_components/chai/chai.js:875',
+        '	    at assertEqual (/Users/spongebob/squarepants/bower_components/chai/chai.js:1405)',
+        '	    at /Users/spongebob/squarepants/bower_components/chai/chai.js:4075',
+        '	    at /Users/spongebob/squarepants/target/foobar.controller.spec.js:37:0',
+        'PhantomJS 1.9.7 (Mac OS X 0.0.0): Executed 2 of 372 (1 FAILED) (0 secs / 0.001 secs)'
+    ].join('\n');
+    
+    stdMocks.use();
+    stdin.send(example1); 
+    stdMocks.restore();
+
+    expect(nodeNotifierMock.notify.called).toBe(true);
+    var output = nodeNotifierMock.notify.args[0][0];
+    expect(output.title).toEqual('Karma Test');
+    expect(output.subtitle).toEqual('foobar.controller.spec.js[37:0]');
+    expect(output.message).toEqual('expected \'not really neat\' to equal \'neat\'');
+    expect(output.icon).toEqual(path.join(__dirname, '../bin/images/karma.png'));
+    expect(output.contentImage).toBeUndefined();
+    expect(output.open).toBeUndefined();
+    expect(output.wait).toBeUndefined();
+    expect(output.sound).toBeUndefined();
+   
+    nodeNotifierMock.notify.reset();
+   
+    var example2 = [
+        'PhantomJS 1.9.7 (Mac OS X 0.0.0) foobar.controller specs is neat FAILED',
+        '	Error: oops',
+        '	    at /Users/spongebob/squarepants/target/foobar.controller.spec.js:37:0',
+        'PhantomJS 1.9.7 (Mac OS X 0.0.0): Executed 2 of 372 (1 FAILED) (0 secs / 0 secs)'
+    ].join('\n');
+
+    stdMocks.use();
+    stdin.send(example2); 
+    stdMocks.restore();
+
+    expect(nodeNotifierMock.notify.called).toBe(true);
+    var output = nodeNotifierMock.notify.args[0][0];
+    expect(output.title).toEqual('Karma Test');
+    expect(output.subtitle).toEqual('foobar.controller.spec.js[37:0]');
+    expect(output.message).toEqual('oops');
+    expect(output.icon).toEqual(path.join(__dirname, '../bin/images/karma.png'));
     expect(output.contentImage).toBeUndefined();
     expect(output.open).toBeUndefined();
     expect(output.wait).toBeUndefined();
