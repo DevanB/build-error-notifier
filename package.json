@@ -1,16 +1,21 @@
 {
   "name": "build-error-notifier",
-  "version": "0.3.0",
+  "version": "0.0.0-semantically-released",
   "description": "Build error notifications for your build toolchain",
+  "homepage": "https://github.com/DevanB/build-error-notifier",
   "bin": {
     "build-error-notifier": "bin/build-error-notifier.js"
   },
-  "scripts": {
-    "test": "./node_modules/.bin/jasmine"
+  "author": {
+    "name": "Devan G. Beitel",
+    "email": "devan.beitel@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mvindahl/build-error-notifier.git"
+    "url": "https://github.com/DevanB/build-error-notifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DevanB/build-error-notifier/issues"
   },
   "keywords": [
     "notifications",
@@ -20,12 +25,17 @@
     "jasmine-node",
     "tslint"
   ],
-  "author": "mvindahl",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mvindahl/build-error-notifier/issues"
+  "files": [
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "commit": "git-cz",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "test": "jasmine"
   },
-  "homepage": "https://github.com/mvindahl/build-error-notifier",
+  "license": "MIT",
   "dependencies": {
     "handlebars": "^3.0.3",
     "minimist": "^1.1.1",
@@ -33,10 +43,18 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "commitizen": "^2.8.6",
+    "cz-conventional-changelog": "^1.2.0",
     "jasmine": "^2.3.1",
     "mock-stdin": "^0.3.0",
     "mockery": "^1.4.0",
+    "semantic-release": "^4.3.5",
     "sinon": "^1.15.4",
     "std-mocks": "^1.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }
