@@ -16,18 +16,15 @@ describe('build-error-notifier', function() {
         warnOnReplace: false,
         warnOnUnregistered: false
     });
-    
-    mockery.registerMock('node-notifier', nodeNotifierMock);
 
+    mockery.registerMock('node-notifier', nodeNotifierMock);
     process.argv = [ 'node', '/full/path/to/build-error-notifier', '--addConfig', './spec/testConfig.js' ];
     buildErrorNotifier = require('../bin/build-error-notifier.js');
-
     nodeNotifierMock.notify.reset();
   });
 
   afterEach(function() {
     mockery.deregisterMock('node-notifier');
-    
     mockery.disable();
   });
   
@@ -35,23 +32,42 @@ describe('build-error-notifier', function() {
     var output = 'some arbitrary text';
 
     stdMocks.use();
-    stdin.send(output); 
+    stdin.send(output);
     stdMocks.restore();
 
     var captured = stdMocks.flush().stdout;
-
     expect(captured).toEqual([ output ]);
+  });
+
+  it('can process output from browserify', function() {
+    var output = 'Error: Parsing file /Users/user_name/sites/site-name/scripts/main.js: Unexpected token (23:6)';
+
+    stdMocks.use();
+    stdin.send(output);
+    stdMocks.restore();
+
+    expect(nodeNotifierMock.notify.called).toBe(true);
+    var output = nodeNotifierMock.notify.args[0][0];
+    expect(output.title).toEqual('Browserify');
+    expect(output.subtitle).toEqual('Unexpected token');
+    expect(output.message).toEqual('main.js [23:6]');
+    expect(output.icon).toEqual(path.join(__dirname, '../bin/images/browserify_watchify.png'));
+    expect(output.contentImage).toBeUndefined();
+    expect(output.open).toBeUndefined();
+    expect(output.wait).toBeUndefined();
+    expect(output.sound).toBeUndefined();
   });
   
   it('can process output from node-sass', function() {
     var output = [
-        '{',
-        '    "message": "invalid top-level expression",',
-        '    "column": 3,',
-        '    "line": 6,',
-        '    "file": "./client/src/css/scss/_common.scss",',
-        '    "status": 1',
-        '}'].join('\n');
+      '{',
+      '    "status": 1,',
+      '    "file": "/Users/user_name/sites/site-name/sass/main.scss",',
+      '    "line": 27,',
+      '    "column": 10,',
+      '    "message": "Undefined variable: \\"$green\\".",',
+      '    "formatted": "Error: Undefined variable: "$green". on line 27 of sass/main.scss >> color: $green; ---------^",',
+      '}'].join('\n');
 
     stdMocks.use();
     stdin.send(output); 
@@ -60,8 +76,8 @@ describe('build-error-notifier', function() {
     expect(nodeNotifierMock.notify.called).toBe(true);
     var output = nodeNotifierMock.notify.args[0][0];
     expect(output.title).toEqual('Sass Compiler');
-    expect(output.subtitle).toEqual('_common.scss[6:3]');
-    expect(output.message).toEqual('invalid top-level expression');
+    expect(output.subtitle).toEqual('main.scss [27:10]');
+    expect(output.message).toEqual('Undefined variable: \\"$green\\".');
     expect(output.icon).toEqual(path.join(__dirname, '../bin/images/sass.png'));
     expect(output.contentImage).toBeUndefined();
     expect(output.open).toBeUndefined();
@@ -121,7 +137,7 @@ describe('build-error-notifier', function() {
     var output = nodeNotifierMock.notify.args[0][0];
     expect(output.title).toEqual('Jasmine Test');
     expect(output.subtitle).toEqual('fooBarSpec.js[79:34]');
-    expect(output.message).toEqual('Expected 1 to equal 42.');
+    expect(output.message).toEqual('Expected 1 to equal 42');
     expect(output.icon).toEqual(path.join(__dirname, '../bin/images/jasmine.png'));
     expect(output.contentImage).toBeUndefined();
     expect(output.open).toBeUndefined();

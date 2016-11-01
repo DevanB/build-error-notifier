@@ -9,9 +9,9 @@ var argv = require('minimist')(process.argv.slice(2))
 var config = {
   'browserify': {
     regex: /Error:\sParsing\sfile\s(?:.*\/)*(.*.js):\s(.*)\s\((.*)\)/,
-    title: 'JS Compiler',
-    subtitle: '{{{2}}} [{{{3}}}]',
-    message: '{{{1}}}',
+    title: 'Browserify',
+    subtitle: '{{{2}}}',
+    message: '{{{1}}} [{{{3}}}]',
     icon: path.join(__dirname, '/images/browserify_watchify.png')
   },
   'jasmine-node': {
@@ -31,8 +31,8 @@ var config = {
   'node-sass': {
     regex: /{\s*"status":\s1,\n\s*"file": "(?:.*\/)*(.*)",\n\s*"line": (.*),\n\s*"column": (.*),\n\s*"message": "(.*)",\n\s*.*\n\s*}/,
     title: 'Sass Compiler',
-    subtitle: '{{{4}}}',
-    message: '{{{1}}} [{{2}}:{{3}}]',
+    subtitle: '{{{1}}} [{{2}}:{{3}}]',
+    message: '{{{4}}}',
     icon: path.join(__dirname, '/images/sass.png')
   },
   'tsc': {
