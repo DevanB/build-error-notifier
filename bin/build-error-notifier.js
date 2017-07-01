@@ -8,7 +8,7 @@ var argv = require('minimist')(process.argv.slice(2))
 
 var config = {
   'browserify': {
-    regex: /Error:\sParsing\sfile\s(?:.*\/)*(.*.js):\s(.*)\s\((.*)\)/,
+    regex: /(?:(?:Error:\sParsing\sfile)|(?:SyntaxError:))\s(?:.*\/)*(.*.js):\s(.*)\s\((.*)\)/,
     title: 'Browserify',
     subtitle: '{{{2}}}',
     message: '{{{1}}} [{{{3}}}]',
